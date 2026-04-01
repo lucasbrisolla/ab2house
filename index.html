@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -235,7 +235,6 @@
   .missao-text { font-size: 0.95rem; color: var(--mid); line-height: 1.8; margin-bottom: 14px; }
 
   .missao-team { display: flex; gap: 20px; margin-top: 36px; justify-content: center; }
-
   .team-member { display: flex; flex-direction: column; align-items: center; gap: 8px; }
   .team-avatar {
     width: 110px; height: 110px; border-radius: 50%;
@@ -356,21 +355,67 @@
   .parceiros-big span { color: var(--red); }
   .parceiros-since { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; margin-top: 6px; }
 
-  .marcas-grid { display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--border); }
-  .marca-item {
-    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 22px 12px;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 76px; transition: background 0.25s; cursor: default;
+  .logos-marquee {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--white), var(--lighter));
+    padding: 18px 0;
   }
-  .marca-item:hover { background: var(--red-light); }
+  .logos-marquee::before,
+  .logos-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 72px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .logos-marquee::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--white) 0%, rgba(255,255,255,0) 100%);
+  }
+  .logos-marquee::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--white) 0%, rgba(255,255,255,0) 100%);
+  }
+  .logos-track {
+    display: flex;
+    width: max-content;
+    gap: 12px;
+    animation: logosSlide 80s linear infinite;
+    will-change: transform;
+  }
+  .logos-marquee:hover .logos-track { animation-play-state: paused; }
+  .marca-item {
+    flex: 0 0 auto;
+    min-width: 170px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: var(--white);
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+  .marca-item:hover {
+    background: var(--red-light);
+    border-color: rgba(200,16,46,0.2);
+    transform: translateY(-2px);
+  }
   .marca-name {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.82rem; font-weight: 800; color: var(--border-dark);
     text-transform: uppercase; letter-spacing: 0.04em; text-align: center; line-height: 1.2;
     transition: color 0.25s;
+    white-space: nowrap;
   }
   .marca-item:hover .marca-name { color: var(--dark); }
+  @keyframes logosSlide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 
   /* CALENDÁRIO */
   #calendario { padding: 120px 0; background: var(--lighter); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -457,6 +502,9 @@
   /* REVEAL */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .logos-track { animation: none; }
+  }
 
   /* RESPONSIVE */
   @media (max-width: 1024px) {
@@ -464,7 +512,7 @@
     .hero-right { display: none; }
     .hero-left::after { display: none; }
     .sol-grid { grid-template-columns: repeat(3, 1fr); }
-    .marcas-grid { grid-template-columns: repeat(5, 1fr); }
+    .marca-item { min-width: 150px; }
     .cal-grid { grid-template-columns: repeat(2, 1fr); }
     .cta-inner { grid-template-columns: 1fr; }
     .cta-right { border-left: none; border-top: 1px solid var(--border); }
@@ -480,14 +528,15 @@
     .missao-card:first-child { grid-column: span 1; }
     .sol-grid { grid-template-columns: 1fr 1fr; }
     .cases-grid { grid-template-columns: 1fr; }
-    .marcas-grid { grid-template-columns: repeat(3, 1fr); }
+    .logos-track { animation-duration: 68s; }
+    .marca-item { min-width: 130px; padding: 14px 16px; }
     .sol-bottom { flex-direction: column; gap: 16px; }
     .parceiros-top { flex-direction: column; gap: 16px; align-items: flex-start; }
     .footer-inner { flex-direction: column; gap: 32px; }
   }
   @media (max-width: 480px) {
     .sol-grid { grid-template-columns: 1fr; }
-    .marcas-grid { grid-template-columns: repeat(2, 1fr); }
+    .logos-track { animation-duration: 56s; }
     .hero-stats { gap: 20px; flex-wrap: wrap; }
     .cal-grid { grid-template-columns: 1fr; }
   }
@@ -497,10 +546,9 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-   <a href="#">
-  <img src="assets/logo.png" alt="ab²house" style="height: 36px;">
+  <a href="#">
+  <img src="assets/logo.png" alt="ab²house" style="height: 70px;">
 </a>
-  <a href="#" class="logo">(ab<sup>2</sup><span>house</span>)</a>
   <ul class="nav-links">
     <li><a href="#solucoes">Soluções</a></li>
     <li><a href="#cases">Cases</a></li>
@@ -609,35 +657,65 @@
         <div class="parceiros-since">com grandes marcas desde 2021</div>
       </div>
     </div>
-    <div class="marcas-grid reveal">
-      <div class="marca-item"><div class="marca-name">Engie</div></div>
-      <div class="marca-item"><div class="marca-name">Stihl</div></div>
-      <div class="marca-item"><div class="marca-name">Desco Atacado</div></div>
-      <div class="marca-item"><div class="marca-name">Ademicon</div></div>
-      <div class="marca-item"><div class="marca-name">Pegada</div></div>
-      <div class="marca-item"><div class="marca-name">Dakota</div></div>
-      <div class="marca-item"><div class="marca-name">PanVel</div></div>
-      <div class="marca-item"><div class="marca-name">PneuStore</div></div>
-      <div class="marca-item"><div class="marca-name">Bom Jesus</div></div>
-      <div class="marca-item"><div class="marca-name">Unifael</div></div>
-      <div class="marca-item"><div class="marca-name">mrJack.bet</div></div>
-      <div class="marca-item"><div class="marca-name">KTO</div></div>
-      <div class="marca-item"><div class="marca-name">Asmas</div></div>
-      <div class="marca-item"><div class="marca-name">Bottero</div></div>
-      <div class="marca-item"><div class="marca-name">Continental</div></div>
-      <div class="marca-item"><div class="marca-name">iPlace</div></div>
-      <div class="marca-item"><div class="marca-name">Soprano</div></div>
-      <div class="marca-item"><div class="marca-name">Fort Atacadista</div></div>
-      <div class="marca-item"><div class="marca-name">Sicoob</div></div>
-      <div class="marca-item"><div class="marca-name">Havan</div></div>
-      <div class="marca-item"><div class="marca-name">Cresol</div></div>
-      <div class="marca-item"><div class="marca-name">La Salle</div></div>
-      <div class="marca-item"><div class="marca-name">Uniasselvi</div></div>
-      <div class="marca-item"><div class="marca-name">Macromix Atacado</div></div>
-      <div class="marca-item"><div class="marca-name">Piccadilly</div></div>
-      <div class="marca-item"><div class="marca-name">Chico World</div></div>
-      <div class="marca-item"><div class="marca-name">Pompéia</div></div>
-      <div class="marca-item"><div class="marca-name">Star Channel</div></div>
+    <div class="logos-marquee reveal" aria-label="Empresas parceiras da ab2house">
+      <div class="logos-track">
+        <div class="marca-item"><div class="marca-name">Engie</div></div>
+        <div class="marca-item"><div class="marca-name">Stihl</div></div>
+        <div class="marca-item"><div class="marca-name">Desco Atacado</div></div>
+        <div class="marca-item"><div class="marca-name">Ademicon</div></div>
+        <div class="marca-item"><div class="marca-name">Pegada</div></div>
+        <div class="marca-item"><div class="marca-name">Dakota</div></div>
+        <div class="marca-item"><div class="marca-name">PanVel</div></div>
+        <div class="marca-item"><div class="marca-name">PneuStore</div></div>
+        <div class="marca-item"><div class="marca-name">Bom Jesus</div></div>
+        <div class="marca-item"><div class="marca-name">Unifael</div></div>
+        <div class="marca-item"><div class="marca-name">mrJack.bet</div></div>
+        <div class="marca-item"><div class="marca-name">KTO</div></div>
+        <div class="marca-item"><div class="marca-name">Asmas</div></div>
+        <div class="marca-item"><div class="marca-name">Bottero</div></div>
+        <div class="marca-item"><div class="marca-name">Continental</div></div>
+        <div class="marca-item"><div class="marca-name">iPlace</div></div>
+        <div class="marca-item"><div class="marca-name">Soprano</div></div>
+        <div class="marca-item"><div class="marca-name">Fort Atacadista</div></div>
+        <div class="marca-item"><div class="marca-name">Sicoob</div></div>
+        <div class="marca-item"><div class="marca-name">Havan</div></div>
+        <div class="marca-item"><div class="marca-name">Cresol</div></div>
+        <div class="marca-item"><div class="marca-name">La Salle</div></div>
+        <div class="marca-item"><div class="marca-name">Uniasselvi</div></div>
+        <div class="marca-item"><div class="marca-name">Macromix Atacado</div></div>
+        <div class="marca-item"><div class="marca-name">Piccadilly</div></div>
+        <div class="marca-item"><div class="marca-name">Chico World</div></div>
+        <div class="marca-item"><div class="marca-name">Pompéia</div></div>
+        <div class="marca-item"><div class="marca-name">Star Channel</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Engie</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Stihl</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Desco Atacado</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Ademicon</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Pegada</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Dakota</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">PanVel</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">PneuStore</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Bom Jesus</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Unifael</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">mrJack.bet</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">KTO</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Asmas</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Bottero</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Continental</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">iPlace</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Soprano</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Fort Atacadista</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Sicoob</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Havan</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Cresol</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">La Salle</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Uniasselvi</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Macromix Atacado</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Piccadilly</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Chico World</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Pompéia</div></div>
+        <div class="marca-item" aria-hidden="true"><div class="marca-name">Star Channel</div></div>
+      </div>
     </div>
   </div>
 </section>
