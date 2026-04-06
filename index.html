@@ -93,7 +93,7 @@
   }
 
   .hero-right {
-    background: var(--red); position: relative;
+    background: linear-gradient(180deg, #252525 0%, #1b1b1b 100%); position: relative;
     overflow: hidden; display: flex; align-items: flex-end;
   }
   .hero-right::before {
@@ -106,14 +106,14 @@
   .hero-year {
     position: absolute; top: 28px; right: 36px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 6rem; font-weight: 900; color: rgba(0,0,0,0.18);
+    font-size: 6rem; font-weight: 900; color: rgba(255,255,255,0.08);
     letter-spacing: -0.04em; user-select: none; line-height: 1;
   }
   .hero-right-content { position: relative; z-index: 2; padding: 48px; width: 100%; }
   .hero-desde {
     position: absolute; top: 48px; left: 48px;
     font-size: 0.68rem; letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.5); text-transform: uppercase;
+    color: rgba(255,255,255,0.58); text-transform: uppercase;
   }
   .hero-quote {
     font-family: 'Barlow Condensed', sans-serif;
@@ -123,7 +123,7 @@
   }
   .hero-quote-author {
     font-size: 0.78rem; letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.6); text-transform: uppercase;
+    color: rgba(255,255,255,0.68); text-transform: uppercase;
   }
   .hero-quote-author strong { color: var(--white); }
 
@@ -446,33 +446,33 @@
   #cta { background: var(--white); }
   .cta-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 420px; border-top: 1px solid var(--border); }
   .cta-left {
-    background: var(--red); padding: 80px 52px;
+    background: linear-gradient(180deg, #f8f8f8 0%, #f1f1f1 100%); padding: 80px 52px;
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
   }
   .cta-left::before {
     content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0,0,0,0.06) 20px, rgba(0,0,0,0.06) 21px);
+    background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(200,16,46,0.04) 20px, rgba(200,16,46,0.04) 21px);
   }
   .cta-left-content { position: relative; z-index: 2; }
   .cta-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 900; text-transform: uppercase;
-    color: var(--white); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 24px;
+    color: var(--dark); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 24px;
   }
-  .cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 36px; max-width: 380px; }
+  .cta-sub { font-size: 0.95rem; color: var(--mid); line-height: 1.7; margin-bottom: 36px; max-width: 380px; }
   .btn-white {
-    display: inline-block; background: var(--white); color: var(--red);
+    display: inline-block; background: var(--red); color: var(--white);
     padding: 16px 36px; text-decoration: none;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
     transition: opacity 0.2s, transform 0.2s;
   }
-  .btn-white:hover { opacity: 0.92; transform: translateY(-2px); }
+  .btn-white:hover { background: #a80d26; transform: translateY(-2px); }
 
   .cta-right {
-    background: var(--lighter); padding: 80px 52px;
+    background: var(--white); padding: 80px 52px;
     display: flex; flex-direction: column; justify-content: center;
     border-left: 1px solid var(--border);
   }
